@@ -1,0 +1,28 @@
+{% extends 'portifolio/base.html' %}
+
+{% block content %}
+<h1>Lucia B. Fisoo</h1>
+<p>Software Engineering student, University of Dodoma</p>
+
+<h2>Projects</h2>
+{% for p in projects %}
+    <div class="card">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.description }}</p>
+        <small>{{ p.tech_stack }}</small><br>
+        {% if p.github_url %}<a href="{{ p.github_url }}">GitHub</a>{% endif %}
+        {% if p.live_url %}<a href="{{ p.live_url }}">Live</a>{% endif %}
+    </div>
+{% empty %}
+    <p>No projects yet.</p>
+{% endfor %}
+
+<h2>Skills</h2>
+<ul>
+    {% for s in skills %}
+        <li>{{ s.name }} ({{ s.level }})</li>
+    {% empty %}
+        <li>No skills yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

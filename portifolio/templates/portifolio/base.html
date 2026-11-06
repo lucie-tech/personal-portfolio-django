@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Lucia's Portfolio{% endblock %}</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 0 16px; }
+        nav { padding: 16px 0; border-bottom: 1px solid #ddd; margin-bottom: 24px; }
+        nav a { margin-right: 16px; text-decoration: none; color: #0a58ca; }
+        .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+        footer { margin: 40px 0; color: #777; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>&copy; 2026 Lucia B. Fisoo</footer>
+</body>
+</html>

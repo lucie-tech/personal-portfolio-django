@@ -10,3 +10,10 @@ class Project(models.Model):
 
     def __str__(self):
         return self.title
+
+class Skill(models.Model):
+    name = models.CharField(max_length=50)
+    level = models.CharField(max_length=20, default="Intermediate")
+
+    def __str__(self):
+        return self.name
