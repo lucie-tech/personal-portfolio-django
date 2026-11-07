@@ -1,8 +1,26 @@
 {% extends 'portifolio/base.html' %}
 
-{% block title %}About | Lucia's Portfolio{% endblock %}
+{% block title %}About | Lucia B. Fisoo{% endblock %}
+{% block description %}Learn more about Lucia B. Fisoo, Software Engineering student at the University of Dodoma.{% endblock %}
 
 {% block content %}
-<h1>About Me</h1>
-<p>Write 2 to 3 sentences about yourself, your studies, and what you are building.</p>
+<div class="shell">
+    <section class="hero" aria-labelledby="about-title">
+        <div>
+            <p class="eyebrow">A little introduction</p>
+            <h1 id="about-title">Curious by nature.<br>Building with purpose.</h1>
+            <p class="hero-copy">I’m Lucia B. Fisoo, a Software Engineering student at the University of Dodoma. I’m developing my craft through hands-on projects and a curiosity for how thoughtful software can make everyday things better.</p>
+            <div class="actions">
+                <a class="button" href="{% url 'home' %}#projects">See my projects</a>
+                <a class="button button-secondary" href="{% url 'home' %}#skills">Explore my skills</a>
+            </div>
+        </div>
+    </section>
+    <section class="section" aria-labelledby="approach-title">
+        <div class="section-heading">
+            <h2 id="approach-title">What I’m focused on</h2>
+        </div>
+        <p class="intro-copy">I’m working toward becoming a thoughtful, well-rounded software engineer: strengthening my fundamentals, learning modern tools, and putting that knowledge into practice. This portfolio is a growing record of the projects, skills, and experience I collect along the way.</p>
+    </section>
+</div>
 {% endblock %}

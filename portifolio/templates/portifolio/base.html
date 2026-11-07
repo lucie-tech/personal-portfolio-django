@@ -1,23 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{% block title %}Lucia's Portfolio{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f6f5f2">
+    <meta name="description" content="{% block description %}The portfolio of Lucia B. Fisoo, Software Engineering student at the University of Dodoma.{% endblock %}">
+    <title>{% block title %}Lucia B. Fisoo | Portfolio{% endblock %}</title>
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 0 16px; }
-        nav { padding: 16px 0; border-bottom: 1px solid #ddd; margin-bottom: 24px; }
-        nav a { margin-right: 16px; text-decoration: none; color: #0a58ca; }
-        .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-        footer { margin: 40px 0; color: #777; font-size: 14px; }
+        :root {
+            color-scheme: light;
+            --ink: #20231f;
+            --muted: #656b63;
+            --paper: #f6f5f2;
+            --surface: #fff;
+            --line: #e5e5de;
+            --accent: #47745b;
+            --accent-dark: #31553f;
+            --soft: #eaf0e8;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+        a { color: var(--accent-dark); }
+        a:focus-visible { outline: 3px solid #b17a3c; outline-offset: 4px; }
+        .shell { width: min(100% - 40px, 1040px); margin-inline: auto; }
+        .site-header { position: sticky; top: 0; z-index: 5; border-bottom: 1px solid rgb(229 229 222 / 85%); background: rgb(246 245 242 / 94%); backdrop-filter: blur(12px); }
+        .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+        .brand { color: var(--ink); font-size: 15px; font-weight: 750; letter-spacing: -.03em; text-decoration: none; }
+        .nav-links { display: flex; flex-wrap: wrap; align-items: center; gap: 25px; }
+        .nav-links a { color: var(--muted); font-size: 13px; font-weight: 650; text-decoration: none; }
+        .nav-links a:hover { color: var(--accent-dark); }
+        main { min-height: 70vh; }
+        .hero { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 48px; align-items: center; padding-block: 104px 96px; }
+        .eyebrow { margin: 0 0 14px; color: var(--accent-dark); font-size: 12px; font-weight: 750; letter-spacing: .13em; text-transform: uppercase; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 720px; margin-bottom: 20px; font-size: clamp(42px, 7vw, 72px); font-weight: 740; letter-spacing: -.065em; line-height: 1.04; }
+        .hero-copy { max-width: 620px; color: var(--muted); font-size: 18px; }
+        .hero-aside { padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+        .availability { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; color: var(--accent-dark); font-size: 12px; font-weight: 750; }
+        .availability::before { width: 8px; height: 8px; border-radius: 50%; background: #71a27b; content: ""; }
+        .hero-aside p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+        .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 10px 17px; border: 1px solid var(--accent-dark); border-radius: 8px; background: var(--accent-dark); color: white; font-size: 13px; font-weight: 700; text-decoration: none; transition: background .15s, transform .15s; }
+        .button:hover { transform: translateY(-1px); background: #263f30; }
+        .button-secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+        .button-secondary:hover { background: var(--surface); }
+        .section { padding-block: 76px; border-top: 1px solid var(--line); }
+        .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 28px; }
+        .section-heading h2 { margin-bottom: 0; font-size: clamp(27px, 4vw, 36px); letter-spacing: -.045em; line-height: 1.2; }
+        .section-note { margin: 0; color: var(--muted); font-size: 13px; }
+        .intro-copy { max-width: 720px; color: var(--muted); font-size: 17px; }
+        .card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        .card { padding: 24px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+        .card h3 { margin-bottom: 8px; font-size: 19px; letter-spacing: -.025em; }
+        .card p { margin-bottom: 15px; color: var(--muted); font-size: 14px; }
+        .card-meta { color: var(--muted); font-size: 12px; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 17px 0 0; padding: 0; list-style: none; }
+        .tag { padding: 5px 10px; border-radius: 999px; background: var(--soft); color: var(--accent-dark); font-size: 11px; font-weight: 700; }
+        .card-links { display: flex; flex-wrap: wrap; gap: 17px; margin-top: 19px; }
+        .card-links a { font-size: 12px; font-weight: 750; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+        .experience-list { display: grid; gap: 14px; }
+        .experience-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 22px; padding: 23px 24px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); }
+        .experience-card h3 { margin-bottom: 3px; font-size: 17px; }
+        .experience-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+        .experience-dates { color: var(--muted); font-size: 12px; white-space: nowrap; }
+        .skill-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill { display: inline-flex; align-items: baseline; gap: 9px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+        .skill strong { font-size: 13px; }
+        .skill span { color: var(--muted); font-size: 11px; }
+        .empty-state { padding: 22px; border: 1px dashed #c9c9bf; border-radius: 12px; color: var(--muted); font-size: 14px; }
+        .contact-panel { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 30px; border-radius: 16px; background: #e9eee7; }
+        .contact-panel h2 { margin-bottom: 7px; font-size: 25px; letter-spacing: -.04em; }
+        .contact-panel p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+        .site-footer { display: flex; justify-content: space-between; gap: 16px; padding-block: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+        .site-footer p { margin: 0; }
+        @media (max-width: 680px) {
+            .shell { width: min(100% - 32px, 1040px); }
+            .nav { min-height: 64px; align-items: flex-start; flex-direction: column; justify-content: center; gap: 4px; padding-block: 10px; }
+            .nav-links { gap: 17px; }
+            .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 70px 62px; }
+            .hero-aside { max-width: 360px; }
+            .section { padding-block: 55px; }
+            .section-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+            .card-grid { grid-template-columns: 1fr; }
+            .experience-card { grid-template-columns: 1fr; gap: 7px; }
+            .experience-dates { grid-row: 1; }
+            .contact-panel, .site-footer { align-items: flex-start; flex-direction: column; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { transition-duration: .01ms !important; }
+        }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'about' %}">About</a>
-    </nav>
-
-    {% block content %}{% endblock %}
-
-    <footer>&copy; 2026 Lucia B. Fisoo</footer>
+    <header class="site-header">
+        <nav class="shell nav" aria-label="Main navigation">
+            <a class="brand" href="{% url 'home' %}">Lucia B. Fisoo</a>
+            <div class="nav-links">
+                <a href="{% url 'home' %}#projects">Projects</a>
+                <a href="{% url 'home' %}#experience">Experience</a>
+                <a href="{% url 'home' %}#skills">Skills</a>
+                <a href="{% url 'about' %}">About</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer class="shell site-footer">
+        <p>&copy; {% now "Y" %} Lucia B. Fisoo</p>
+        <p>Software Engineering student · University of Dodoma</p>
+    </footer>
 </body>
 </html>

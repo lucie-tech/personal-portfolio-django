@@ -1,28 +1,111 @@
 {% extends 'portifolio/base.html' %}
 
 {% block content %}
-<h1>Lucia B. Fisoo</h1>
-<p>Software Engineering student, University of Dodoma</p>
+<div class="shell">
+    <section class="hero" aria-labelledby="intro-title">
+        <div>
+            <p class="eyebrow">Portfolio · Software Engineering</p>
+            <h1 id="intro-title">Hello, I’m Lucia.<br>I build for the web.</h1>
+            <p class="hero-copy">I’m a Software Engineering student at the University of Dodoma, learning by turning ideas into thoughtful, useful digital experiences.</p>
+            <div class="actions">
+                <a class="button" href="#projects">Explore my work</a>
+                <a class="button button-secondary" href="{% url 'about' %}">A little about me</a>
+            </div>
+        </div>
+        <aside class="hero-aside" aria-label="Current focus">
+            <div class="availability">Currently learning</div>
+            <p>Growing my software engineering skills and building projects one idea at a time.</p>
+        </aside>
+    </section>
 
-<h2>Projects</h2>
-{% for p in projects %}
-    <div class="card">
-        <h3>{{ p.title }}</h3>
-        <p>{{ p.description }}</p>
-        <small>{{ p.tech_stack }}</small><br>
-        {% if p.github_url %}<a href="{{ p.github_url }}">GitHub</a>{% endif %}
-        {% if p.live_url %}<a href="{{ p.live_url }}">Live</a>{% endif %}
-    </div>
-{% empty %}
-    <p>No projects yet.</p>
-{% endfor %}
+    <section class="section" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading">
+            <h2 id="projects-title">Selected projects</h2>
+            <p class="section-note">A few things I’ve been working on.</p>
+        </div>
+        {% if projects %}
+            <div class="card-grid">
+                {% for project in projects %}
+                    <article class="card">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description|linebreaksbr }}</p>
+                        {% if project.tech_stack %}
+                            <ul class="tag-list" aria-label="Technologies used">
+                                <li class="tag">{{ project.tech_stack }}</li>
+                            </ul>
+                        {% endif %}
+                        <div class="card-links">
+                            {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a>
+                            {% endif %}
+                            {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer">Visit live site <span aria-hidden="true">↗</span></a>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">Projects will appear here as they’re added.</p>
+        {% endif %}
+    </section>
 
-<h2>Skills</h2>
-<ul>
-    {% for s in skills %}
-        <li>{{ s.name }} ({{ s.level }})</li>
-    {% empty %}
-        <li>No skills yet.</li>
-    {% endfor %}
-</ul>
+    <section class="section" id="experience" aria-labelledby="experience-title">
+        <div class="section-heading">
+            <h2 id="experience-title">Experience</h2>
+            <p class="section-note">The roles and experiences shaping my journey.</p>
+        </div>
+        {% if experiences %}
+            <div class="experience-list">
+                {% for item in experiences %}
+                    <article class="experience-card">
+                        <div>
+                            <h3>
+                                {% if item.organization_url %}
+                                    <a href="{{ item.organization_url }}" target="_blank" rel="noopener noreferrer">{{ item.role }} at {{ item.organization }} <span aria-hidden="true">↗</span></a>
+                                {% else %}
+                                    {{ item.role }} at {{ item.organization }}
+                                {% endif %}
+                            </h3>
+                            {% if item.location %}<p class="card-meta">{{ item.location }}</p>{% endif %}
+                            <p>{{ item.description|linebreaksbr }}</p>
+                        </div>
+                        <div class="experience-dates">
+                            {{ item.start_date|date:"M Y" }} –
+                            {% if item.is_current %}Present{% elif item.end_date %}{{ item.end_date|date:"M Y" }}{% else %}{{ item.start_date|date:"M Y" }}{% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">Experience will appear here when you add a role or activity.</p>
+        {% endif %}
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title">
+        <div class="section-heading">
+            <h2 id="skills-title">Skills &amp; tools</h2>
+            <p class="section-note">Always learning, always improving.</p>
+        </div>
+        {% if skills %}
+            <div class="skill-grid">
+                {% for skill in skills %}
+                    <div class="skill"><strong>{{ skill.name }}</strong><span>{{ skill.level }}</span></div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty-state">Skills will appear here as you add them.</p>
+        {% endif %}
+    </section>
+
+    <section class="section" aria-labelledby="contact-title">
+        <div class="contact-panel">
+            <div>
+                <h2 id="contact-title">Thanks for stopping by.</h2>
+                <p>Take a look at my projects and follow along as I keep building.</p>
+            </div>
+            <a class="button" href="#projects">See my projects</a>
+        </div>
+    </section>
+</div>
 {% endblock %}
